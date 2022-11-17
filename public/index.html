@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google sign-in</title>
+</head>
+<body>
+
+    <div id="buttonDiv"></div>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+      <script>
+        var url = "http://localhost:3000/api/login/google";
+
+        function handleCredentialResponse(response) {
+          //console.log("Encoded JWT ID token: " + response.credential);
+          fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: response.credential  })
+          })
+          .then( resp => resp.json() )
+          .then( data => console.log('Nuestro Server', data ) )
+          .catch( console.log )
+        }
+        window.onload = function () {
+          google.accounts.id.initialize({
+            client_id: "1060840998644-e5basrumsn3fhm9de99ibesmk9bgnf85.apps.googleusercontent.com",
+            callback: handleCredentialResponse
+          });
+          google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            { theme: "outline", size: "large" }  // customization attributes
+          );
+          google.accounts.id.prompt(); // also display the One Tap dialog
+        }
+    </script>
+</body>
+</html>
