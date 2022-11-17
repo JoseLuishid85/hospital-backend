@@ -1,4 +1,5 @@
 /*
+    Usuarios
     Rutas: /api/usuarios
 */
 const { Router } = require('express');
