@@ -64,6 +64,7 @@ const fileUpload = (req, res = response) => {
     
         res.json({
             ok: true,
+            nombreArchivo: nombreArchivo,
             msg: 'File uploaded!'
         });
     });

@@ -15,6 +15,31 @@ const getMedicos = async(req,res = response) => {
 
 }
 
+const getMedicoById = async(req,res = response) => {
+
+    const id = req.params.id;
+
+    try {
+        const medico = await Medico.findById(id)
+                                .populate('usuario','nombre')
+                                .populate('hospital','nombre');
+        res.json({
+            ok:true,
+            medicos: medico
+        });
+    } catch (error) {
+        console.log(error);
+        res.json({
+            ok: false,
+            msg: "Error"
+        })
+    }
+
+    
+
+}
+
+
 const crearMedico = async(req,res = response) => {
 
     const uid = req.uid;
@@ -119,6 +144,7 @@ const borrarMedico = async(req,res = response) => {
 
 module.exports = {
     getMedicos,
+    getMedicoById,
     crearMedico,
     actualizarMedico,
     borrarMedico

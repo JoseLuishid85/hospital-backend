@@ -7,18 +7,19 @@ const { bdConnection } = require('./database/config');
 
 //Crear el servidor de Express
 const app = express();
-
+//Base de Datos
+bdConnection();
 //Configurar CORS
 app.use(cors());
 
+
 //Carpeta publica 
-app.use( express.static('public') );
+//app.use( express.static('public') );
 
 //Lectura y parseo del body
 app.use( express.json() );
 
-//Base de Datos
-bdConnection();
+
 
 //Rutas
 app.use('/api/usuarios',   require('./routes/usuarios'));

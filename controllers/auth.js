@@ -92,10 +92,14 @@ const remewToken = async(req, res = response) => {
 
     //Generar el Token - JWT
     const token = await generarJWT(uid);
+    const usuario = await Usuario.findById(uid);
+
+    //Obetener Usuario
 
     res.json({
         ok:true,
-        token
+        token,
+        usuario
     });
 }
 
